@@ -2,6 +2,7 @@ export const prodConfig = {
   assetsUrl: window.location.host,
   baseUrl: window.location.host,
   apiUrl: {
-    api1: 'https://randomuser.me/api/?results=10',
+    graphQL: 'https://48p1r2roz4.sse.codesandbox.io',
+    restUrl: 'https://randomuser.me/api/?results=10',
   },
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppRoutesConfig } from '../../../config/routes';
+import { AppRoutesConfig } from '../../../config/routing/routes';
 import { GlobalNavWrapper, GlobalNavLink } from './global-nav-style';
 
 const GlobalNav = () => {

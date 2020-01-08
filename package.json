@@ -1,5 +1,5 @@
 {
-  "name": "React Apollo",
+  "name": "react-apollo",
   "version": "1.0.0",
   "description": "react-redux project with apollo integration",
   "main": "index.js",
@@ -17,8 +17,11 @@
   "author": "Johanna Del Pino",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.1",
+    "@apollo/client": "^3.0.0-beta.19",
+    "apollo-link-rest": "^0.7.3",
     "core-js": "^3.6.2",
+    "graphql": "^14.5.8",
+    "graphql-anywhere": "^4.2.6",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -45,6 +48,7 @@
     "@babel/plugin-transform-react-jsx-source": "^7.7.4",
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-react": "^7.7.4",
+    "apollo-link": "^1.2.13",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.5",
     "case-sensitive-paths-webpack-plugin": "^2.2.0",

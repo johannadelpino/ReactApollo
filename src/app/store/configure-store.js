@@ -1,22 +1,60 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import logger from 'redux-logger';
-import thunk from 'redux-thunk';
+import {
+  ApolloClient,
+  HttpLink,
+  InMemoryCache,
+  gql,
+  useQuery,
+} from '@apollo/client';
+import { ApolloLink } from 'apollo-link';
+import { appResolvers, appDefinitions } from './resolvers/app-resolvers';
+import { userResolvers, userDefinitions } from './resolvers/user-resolvers';
+import StoreDefaultState from './store-default-state';
 
-const configureStore = rootReducer => {
-  const componeEnhancers = compose;
-  if (process.env.NODE_ENV !== 'production') {
-    const store = createStore(
-      rootReducer,
-      componeEnhancers(applyMiddleware(thunk, logger))
-    );
-    return store;
-  } else {
-    const store = createStore(
-      rootReducer,
-      componeEnhancers(applyMiddleware(thunk))
-    );
-    return store;
+/**
+ * Root Definitions
+ */
+
+const rootDefinitions = gql`
+  extend type Query {
+    app: App!
+    user: User!
   }
+  ${appDefinitions}
+  ${userDefinitions}
+`;
+
+/**
+ * Root Resolvers
+ */
+const rootResolvers = {
+  app: { ...appResolvers },
+  user: { ...userResolvers },
 };
 
-export default configureStore;
+/**
+ * Apollo client for application state management
+ */
+
+const store = new InMemoryCache();
+store.writeData({ data: StoreDefaultState });
+
+const apolloStoreClientConfig = {
+  cache: store,
+  link: ApolloLink.from([
+    new HttpLink({
+      uri: '',
+    }),
+  ]),
+  typeDefs: rootDefinitions,
+  resolvers: rootResolvers,
+};
+
+const apolloStoreClient = new ApolloClient(apolloStoreClientConfig);
+
+apolloStoreClient.onResetStore(() =>
+  store.writeData({ data: StoreDefaultState })
+);
+
+const useGetState = query => useQuery(query, { fetchPolicy: 'cache-only' });
+
+export { apolloStoreClient, useGetState };
