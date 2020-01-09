@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
 import { Heading1 } from 'app-common/styles/headings-style';
 import { SimpleLayout } from 'app-common/styles/layout-style';
-import { useAppState } from '../../store/connectors/app-connectors';
+import {
+  useAppState,
+  updateLoading,
+} from '../../store/connectors/app-connectors';
 
 import {
   useClientOneQuery,
@@ -25,7 +28,7 @@ const Home = () => {
 
   useEffect(() => {
     if (!loading && !loadingPerson) {
-      console.warn('time to remove the loading mask');
+      updateLoading(false);
     }
   }, [loading, loadingPerson]);
   /**
@@ -50,6 +53,7 @@ const Home = () => {
   /**
    * Render
    */
+
   return (
     <SimpleLayout>
       <Heading1>Home Page</Heading1>
