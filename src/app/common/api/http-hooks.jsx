@@ -5,11 +5,15 @@ import {
   apolloClientRest,
 } from 'app-common/api/apollo-clients';
 
-export const useClientOneQuery = query => {
-  return useQuery(query, { client: apolloClientOne });
+export const useClientOneQuery = (query, config) => {
+  let queryParams = { client: apolloClientOne };
+  if (config) {
+    queryParams = { ...queryParams, ...config };
+  }
+  return useQuery(query, queryParams);
 };
 
-export const useClientRestQuery = query => {
+export const useClientRestQuery = (query, config) => {
   const [response, setResponse] = useState({ loading: false });
 
   useEffect(() => {
@@ -20,7 +24,7 @@ export const useClientRestQuery = query => {
         setResponse({ loading: false, data: resp });
       })
       .catch(error => setResponse({ loading: false, error: error }));
-  }, [query]);
+  }, [query, config]);
 
   return response;
 };

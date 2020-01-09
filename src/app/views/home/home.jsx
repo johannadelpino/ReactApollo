@@ -19,7 +19,9 @@ const Home = () => {
    * Effects
    */
   const { data: appData } = useAppState();
-  const { loading, error, data } = useClientOneQuery(EXCHANGE_RATES);
+  const { loading, error, data } = useClientOneQuery(EXCHANGE_RATES, {
+    variables: { currency: 'USD' },
+  });
   const {
     loading: loadingPerson,
     error: errorPerson,
