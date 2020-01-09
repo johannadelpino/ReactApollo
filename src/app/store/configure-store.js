@@ -65,6 +65,9 @@ apolloStoreClient.onResetStore(() =>
   store.writeData({ data: StoreDefaultState })
 );
 
+/**
+ * State Handlers
+ */
 const stateReducer = (action, cache) => {
   const state = cache.readQuery({ query: GET_STATE });
   switch (action.object) {
@@ -79,11 +82,17 @@ const stateReducer = (action, cache) => {
   }
 };
 
-const useGetState = query => useQuery(query, { fetchPolicy: 'cache-only' });
-
+/**
+ * Set state
+ */
 const setState = action => {
   const newState = stateReducer(action, store);
   apolloStoreClient.writeData({ data: newState });
 };
+
+/**
+ * Get state hook
+ */
+const useGetState = query => useQuery(query, { fetchPolicy: 'cache-only' });
 
 export { apolloStoreClient, useGetState, setState };
