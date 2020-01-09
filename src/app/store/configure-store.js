@@ -95,4 +95,6 @@ const setState = action => {
  */
 const useGetState = query => useQuery(query, { fetchPolicy: 'cache-only' });
 
-export { apolloStoreClient, useGetState, setState };
+const useGetRootState = () => useGetState(GET_STATE);
+
+export { apolloStoreClient, useGetState, setState, useGetRootState };
